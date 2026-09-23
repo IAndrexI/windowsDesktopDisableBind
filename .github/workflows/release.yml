@@ -1,0 +1,39 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create release zip archive
+        shell: pwsh
+        run: |
+          $files = @(
+            "disable_new_desktop.ahk",
+            "install.bat",
+            "install.ps1",
+            "uninstall.bat",
+            "uninstall.ps1",
+            "README.md",
+            "LICENSE"
+          )
+          Compress-Archive -Path $files -DestinationPath "windowsDesktopDisableBind.zip" -Force
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: windowsDesktopDisableBind.zip
+          generate_release_notes: true
+          name: ${{ github.ref_name }}
