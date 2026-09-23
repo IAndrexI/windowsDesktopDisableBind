@@ -1,0 +1,19 @@
+# Windows thumbnail caches and desktop configurations
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+[Dd]esktop.ini
+
+# Windows shortcuts
+*.lnk
+
+# Temporary files and logs
+*.log
+*.tmp
+*.bak
+*~
+
+# IDE and editor settings
+.vscode/
+.idea/
